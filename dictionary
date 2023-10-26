@@ -1,0 +1,83 @@
+package org.generation.diccionario;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class DiccionarioBilingue {
+	
+	public static void main(String [] args) {
+		Scanner scanner= new Scanner(System.in);
+		//Variables que van a almacenar las traducciones
+		String word;
+		int correct= 0;
+		
+		//HashMap para almacenar palabras
+		HashMap<String, String> dictionary= new HashMap<>();
+		
+		dictionary.put("triste", "sad");
+		dictionary.put("verdad", "true");
+		dictionary.put("pollo", "chicken");
+		dictionary.put("tener", "have");
+		dictionary.put("trabajo", "work");
+		dictionary.put("dinero", "money");
+		dictionary.put("enojo", "anger");
+		dictionary.put("nube", "cloud");
+		dictionary.put("azul", "blue");
+		dictionary.put("arcoiris", "rainbow");
+		dictionary.put("maldicion", "curse");
+		dictionary.put("tiempo", "time");
+		dictionary.put("amor", "love");
+		dictionary.put("llamada", "call");
+		dictionary.put("perdido", "lost");
+		dictionary.put("uno", "one");
+		dictionary.put("solo", "alone");
+		dictionary.put("diversion", "fun");
+		dictionary.put("dolor", "pain");
+		dictionary.put("nuevo", "new");
+		
+		//Para usar un metodo aleatorio convertimos el HashMap en un array
+		List<String> spanish= new ArrayList<>(dictionary.keySet());
+		
+		//Creamos un conjunto para no repetir palabras
+		Set<String> noRepeat= new HashSet<>();
+		
+		//generamos las palabras aleatoriamente con un ciclo for sin repetir
+		Random rand= new Random();
+		for(int i=0; i<5; i++) {
+			if(noRepeat.size()== spanish.size()) {
+				System.out.println("Por favor traduce al ingles las palabras: ");
+				break;
+			}
+			
+			String aleatoryWord;
+			do {
+				int aleatory=rand.nextInt(spanish.size());
+				//Obtenemos las palabras
+				aleatoryWord= spanish.get(aleatory);
+			} while (noRepeat.contains(aleatoryWord));
+			
+			String english= dictionary.get(aleatoryWord);
+			System.out.println("Traduce al ingles " + aleatoryWord);
+			
+			word= scanner.nextLine();
+			
+			if  (word.equals(english)) {
+				System.out.println("Correcto, la traduccion es " + english);
+				correct++;
+			}else {
+				System.out.println("Lo siento, la respuesta correcta es " + english);
+			}
+	
+			noRepeat.add(aleatoryWord);
+		}
+		
+		System.out.println("Obtuviste " +correct + "/5 respuestas correctas, Bien hecho!");
+		
+		scanner.close();
+	}
+}
